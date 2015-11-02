@@ -3,8 +3,8 @@ import java.awt.GridLayout;
 import java.awt.Panel;
 
 import javax.swing.JButton;
-import java.awt.event.*;
 
+import java.awt.event.*;
 
 
 public class GuiKeyPad extends Panel{
@@ -17,12 +17,10 @@ public class GuiKeyPad extends Panel{
 	private static final String[] names=
 		{"1","2","3","4","5","6","7","8","9","0","Delete","Enter"};
 	private GridLayout gridLayout;
-	private GuiScreen screen=new GuiScreen();
-	static int i;
 	
 	public GuiKeyPad()
 	{
-		gridLayout=new GridLayout(4,3);
+		gridLayout=new GridLayout(4,3,5,5);
 		buttons=new JButton[12];
 		for(int count=0;count<12;count++)
 		{
@@ -31,36 +29,35 @@ public class GuiKeyPad extends Panel{
 		}
 		setLayout(gridLayout);
 		
-		for (i=0; i < 9; i ++){
+		for (int i=0; i < 9; i ++){
+			int j=i;
 	        buttons[i].addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent e)
 	            {
-	                getKeyPadInput(i);
+	                getKeyPadInput(j);
 	                System.out.println(str);
-	                setString();
 	            }
 	        });
 		}
 		
 		buttons[10].addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e)
-            {
-            	deleteKeyPressed();
-            	System.out.println(str);
-            	setString();
-            }
-        });
+	        public void actionPerformed(ActionEvent e)
+	        {
+	        	deleteKeyPressed();
+	        	System.out.println(str);
+	        }
+	    });
 		
 		buttons[11].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
             {
             	enterKeyPressed();
             	System.out.println(str);
-            	setString();
             }
         });
 	}
 	
+
 	private String getKeyPadInput(int digit){
 		str+=names[digit];
 		System.out.println(str);
@@ -68,7 +65,7 @@ public class GuiKeyPad extends Panel{
 	}
 	
 	private String deleteKeyPressed(){
-		str="";
+		str=str.substring(0,str.length()-1);
 		System.out.println(str);
 		return str;
 	}
@@ -82,8 +79,13 @@ public class GuiKeyPad extends Panel{
 		return str;
 	}
 	
-	private void setString(){
-		screen.show(str);
-	}
 	
+	// return an integer value entered by user
+	public int intoInt(String str)
+	{
+		if(str!="")
+			return Integer.parseInt(str) ;// we assume that user enters an integer
+		else
+			return 0;
+	} // end method getInput
 }

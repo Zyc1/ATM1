@@ -7,8 +7,9 @@ public class ATMCaseStudy
 	public static void main( String[] args )
 	{
 		GuiATM ATM=new GuiATM();
+		
 		ATM.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		ATM.setSize(600, 450);
+		ATM.setBounds(100,100,400,500);
 		ATM.setVisible(true);
 	} // end main
  } // end class ATMCaseStudy
